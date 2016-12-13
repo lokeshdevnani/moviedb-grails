@@ -1,0 +1,8 @@
+import mdb.Movies
+
+model {
+	Iterable<Movies> moviesList
+}
+
+json tmpl.movies(moviesList ?: [])
+

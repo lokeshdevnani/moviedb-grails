@@ -1,0 +1,7 @@
+import mdb.Movies
+
+model {
+	Movies movies
+}
+
+json g.render(movies,[deep: true])
