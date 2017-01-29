@@ -1,15 +1,10 @@
 grails {
     plugin {
         springsecurity {
-
             rest {
-
                 oauth {
-
-                    frontendCallbackUrl = { String tokenValue -> "http://requestb.in/z0mtwoz0=${tokenValue}" }
-
+                    frontendCallbackUrl = { String tokenValue -> "http://requestb.in/z0mtwoz0?token=${tokenValue}" }
                     facebook {
-
                         client = org.pac4j.oauth.client.FacebookClient
                         key = '247357032373109'
                         secret = '37332ea09efa9e4be3e4374da66f1be1'
