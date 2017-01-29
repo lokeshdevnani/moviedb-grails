@@ -2,7 +2,7 @@ package mdb
 
 import grails.rest.*
 
-@Resource(readOnly = false, formats = ['json', 'xml'])
+@Resource(uri = '/api/movies', readOnly = false, formats = ['json', 'xml'])
 class Movies {
     String title
     int releaseYear

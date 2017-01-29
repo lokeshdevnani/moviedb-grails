@@ -9,7 +9,7 @@ grails {
                         key = '247357032373109'
                         secret = '37332ea09efa9e4be3e4374da66f1be1'
                         scope = 'email,user_location'
-                        fields = 'id,name,first_name,middle_name,last_name'
+                        fields = 'id,name,email'
                         defaultRoles = ['ROLE_USER', 'ROLE_FACEBOOK']
                     }
                 }
@@ -32,13 +32,21 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         [pattern: '/**/js/**',       access: ['permitAll']],
         [pattern: '/**/css/**',      access: ['permitAll']],
         [pattern: '/**/images/**',   access: ['permitAll']],
-        [pattern: '/**/favicon.ico', access: ['permitAll']]
+        [pattern: '/**/favicon.ico', access: ['permitAll']],
+        [pattern: '/**',   access: ['permitAll'], httpMethod: 'GET'],
+        [pattern: '/**',   access: ['ROLE_USER'], httpMethod: 'POST'],
+        [pattern: '/**/**',   access: ['ROLE_USER'], httpMethod: 'PUT'],
+        [pattern: '/**/**',   access: ['ROLE_USER'], httpMethod: 'PATCH'],
+        [pattern: '/**/**',   access: ['ROLE_USER'], httpMethod: 'DELETE']
+
+        //[pattern: '/api/movies/**',  access: ['permitAll'], httpMethod: 'GET'] //,
+        //,[pattern: '/api/movies',      access: ['permitAll']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
         //Stateless chain
-        [ pattern: '/api/**', filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'],
-
+        [ pattern: '/api/**', filters: 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'],
+//,-anonymousAuthenticationFilter
         //Traditional chain
         //[ pattern: '/**', filters: 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter']
 ]
