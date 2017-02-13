@@ -6,7 +6,7 @@ import grails.rest.*
 class Movies {
     def springSecurityService
 
-    String userId
+    String userId = "0"
     String title
     int releaseYear
     String summary
@@ -19,10 +19,17 @@ class Movies {
 //   }
 
     def beforeInsert() {
-        userId =  springSecurityService.principal?.username
+        println("------------------------------------------------------")
+        if (springSecurityService.principal) {
+            userId =  springSecurityService.principal?.username
+        } else {
+            userId =  "0"
+        }
     }
-
-
 //    static hasMany = [genre: Genres]
 //    static hasOne = [director: Directors]
+
+    static constraints = {
+        userId nullable: true
+    }
 }
