@@ -1,6 +1,9 @@
 package mdb
 
+import grails.converters.JSON;
+
 class BootStrap {
+    def grailsApplication
 
     def init = { servletContext ->
         Movies movies = new Movies(
@@ -44,6 +47,20 @@ class BootStrap {
                 director : [ name: "Martin Scorsese" ]
         ).save();
 
+        def filePath = "movies.json"
+        def text = grailsApplication.getParentContext().getResource("classpath:$filePath").getInputStream().getText()
+        def json = JSON.parse(text)
+
+        for (movieData in json) {
+            def m = new Movies(
+                userId  : 1,
+                title   : movieData["title"],
+                releaseYear: movieData["releaseYear"],
+                summary : movieData["summary"],
+                genre   : [ name:movieData["genre"]],
+                director: [ name: movieData["director"] ]
+            ).save(failOnError: true);
+        }
     };
     def destroy = {
     }
