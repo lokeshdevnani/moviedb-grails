@@ -6,7 +6,7 @@ class BootStrap {
     def grailsApplication
 
     def init = { servletContext ->
-        Movies movies = new Movies(
+       Movies movies = new Movies(
                 userId: 1,
                 title: "Interstellar",
                 releaseYear : 2014,
